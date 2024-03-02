@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_course/auth/login.dart';
 import 'package:flutter_firebase_course/categories/add.dart';
 import 'package:flutter_firebase_course/categories/edit.dart';
+import 'package:flutter_firebase_course/notes/view.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class HomePage extends StatefulWidget {
@@ -85,6 +86,10 @@ class _HomePageState extends State<HomePage> {
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => ViewPage(categoryId: data[index].id)));
+                    },
                     onLongPress: () {
                       AwesomeDialog(
                         context: context,
