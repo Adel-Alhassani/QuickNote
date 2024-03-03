@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_course/auth/login.dart';
 import 'package:flutter_firebase_course/auth/signup.dart';
+import 'package:flutter_firebase_course/filter.dart';
 import 'package:flutter_firebase_course/home.dart';
 
 void main() async {
@@ -39,20 +41,21 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          appBarTheme: AppBarTheme(
-              backgroundColor: Colors.white,
-              titleTextStyle: TextStyle(
-                  fontSize: 24,
-                  color: Colors.orange,
-                  fontWeight: FontWeight.bold),
-              iconTheme: IconThemeData(color: Colors.orange))),
-      debugShowCheckedModeBanner: false,
-      home: (FirebaseAuth.instance.currentUser != null &&
-              FirebaseAuth.instance.currentUser!.emailVerified)
-          ? HomePage()
-          : Login(),
-    );
+        theme: ThemeData(
+            appBarTheme: AppBarTheme(
+                backgroundColor: Colors.white,
+                titleTextStyle: TextStyle(
+                    fontSize: 24,
+                    color: Colors.orange,
+                    fontWeight: FontWeight.bold),
+                iconTheme: IconThemeData(color: Colors.orange))),
+        debugShowCheckedModeBanner: false,
+        home: FilterPage()
+        // (FirebaseAuth.instance.currentUser != null &&
+        //         FirebaseAuth.instance.currentUser!.emailVerified)
+        //     ? HomePage()
+        //     : Login(),
+        );
   }
 }
 

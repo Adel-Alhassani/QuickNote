@@ -87,8 +87,9 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => ViewPage(categoryId: data[index].id)));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              ViewPage(categoryId: data[index].id)));
                     },
                     onLongPress: () {
                       AwesomeDialog(
