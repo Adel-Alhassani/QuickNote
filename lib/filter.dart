@@ -34,6 +34,33 @@ class _FilterPageState extends State<FilterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          DocumentReference doc1 =
+              FirebaseFirestore.instance.collection("user").doc("1");
+          DocumentReference doc2 =
+              FirebaseFirestore.instance.collection("user").doc("2");
+
+          WriteBatch batch = FirebaseFirestore.instance.batch();
+
+          batch.set(doc1, {
+            "username": "ali",
+            "age": 27,
+            "money": 700,
+          });
+
+          batch.set(doc2, {
+            "username": "shady",
+            "age": 33,
+            "money": 50,
+          });
+          batch.commit();
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => FilterPage()),
+              (Route<dynamic> route) => false);
+        },
+        child: Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: Text('Filter'),
       ),
