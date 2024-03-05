@@ -43,21 +43,20 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-            appBarTheme: AppBarTheme(
-                backgroundColor: Colors.white,
-                titleTextStyle: TextStyle(
-                    fontSize: 24,
-                    color: Colors.orange,
-                    fontWeight: FontWeight.bold),
-                iconTheme: IconThemeData(color: Colors.orange))),
-        debugShowCheckedModeBanner: false,
-        home: PickFilePage()
-        // (FirebaseAuth.instance.currentUser != null &&
-        //         FirebaseAuth.instance.currentUser!.emailVerified)
-        //     ? HomePage()
-        //     : Login(),
-        );
+      theme: ThemeData(
+          appBarTheme: AppBarTheme(
+              backgroundColor: Colors.white,
+              titleTextStyle: TextStyle(
+                  fontSize: 24,
+                  color: Colors.orange,
+                  fontWeight: FontWeight.bold),
+              iconTheme: IconThemeData(color: Colors.orange))),
+      debugShowCheckedModeBanner: false,
+      home: (FirebaseAuth.instance.currentUser != null &&
+              FirebaseAuth.instance.currentUser!.emailVerified)
+          ? HomePage()
+          : Login(),
+    );
   }
 }
 

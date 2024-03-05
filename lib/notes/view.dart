@@ -74,7 +74,7 @@ class _ViewPageState extends State<ViewPage> {
                 : Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: ListView.builder(
-                      itemExtent: 70,
+                      itemExtent: 170,
                       itemCount: data.length,
                       itemBuilder: (context, index) {
                         return InkWell(
@@ -112,12 +112,26 @@ class _ViewPageState extends State<ViewPage> {
                           },
                           child: Card(
                             // color: Colors.orange,
-                            child: Column(children: [
-                              Text(
-                                "${data[index]["note"]}",
-                                style: TextStyle(fontSize: 20),
-                              )
-                            ]),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "${data[index]["note"]}",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  if (data[index]["url"] != "none")
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Image.network(
+                                          data[index]["url"],
+                                          height: 100,
+                                        )
+                                      ],
+                                    ),
+                                ]),
                           ),
                         );
                       },
