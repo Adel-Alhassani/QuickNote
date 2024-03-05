@@ -4,8 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_course/auth/login.dart';
 import 'package:flutter_firebase_course/auth/signup.dart';
-import 'package:flutter_firebase_course/filter.dart';
+import 'package:flutter_firebase_course/test_topics/filter.dart';
 import 'package:flutter_firebase_course/home.dart';
+import 'package:flutter_firebase_course/test_topics/pick_file.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +15,8 @@ void main() async {
           apiKey: "AIzaSyC1cJP2-vCNgVI8Zj8-ppyEUcAR_vYMQLQ",
           appId: "1:374514388930:android:ee02441142146b11a8905b",
           messagingSenderId: "374514388930",
-          projectId: "flutter-firebase-course-6778b"));
+          projectId: "flutter-firebase-course-6778b",
+          storageBucket: "flutter-firebase-course-6778b.appspot.com"));
   runApp(const MyApp());
 }
 
@@ -50,7 +52,7 @@ class _MyAppState extends State<MyApp> {
                     fontWeight: FontWeight.bold),
                 iconTheme: IconThemeData(color: Colors.orange))),
         debugShowCheckedModeBanner: false,
-        home: FilterPage()
+        home: PickFilePage()
         // (FirebaseAuth.instance.currentUser != null &&
         //         FirebaseAuth.instance.currentUser!.emailVerified)
         //     ? HomePage()
