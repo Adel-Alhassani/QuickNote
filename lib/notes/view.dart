@@ -73,69 +73,87 @@ class _ViewPageState extends State<ViewPage> {
                   )
                 : Container(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: ListView.builder(
-                      itemExtent: 170,
-                      itemCount: data.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onLongPress: () {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.warning,
-                              animType: AnimType.rightSlide,
-                              title: 'Options',
-                              desc: 'What you want to do?',
-                              btnOkText: "Edit",
-                              btnOkOnPress: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => EditNote(
-                                          noteId: data[index].id,
-                                          oldNote: data[index]["note"],
-                                          categoryId: widget.categoryId,
-                                        )));
-                              },
-                              btnCancelText: "Delete",
-                              btnCancelOnPress: () async {
-                                await FirebaseFirestore.instance
-                                    .collection("category")
-                                    .doc(widget.categoryId)
-                                    .collection("notes")
-                                    .doc(data[index].id)
-                                    .delete();
-                                Navigator.of(context)
-                                    .pushReplacement(MaterialPageRoute(
-                                        builder: (context) => ViewPage(
-                                              categoryId: widget.categoryId,
-                                            )));
-                              },
-                            ).show();
-                          },
-                          child: Card(
-                            // color: Colors.orange,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "${data[index]["note"]}",
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  if (data[index]["url"] != "none")
-                                    Column(
+                    child: data.isEmpty
+                        ? Center(
+                            child: Text(
+                              "There is no notes",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          )
+                        : ListView.builder(
+                            itemExtent: 170,
+                            itemCount: data.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onLongPress: () {
+                                  AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.warning,
+                                    animType: AnimType.rightSlide,
+                                    title: 'Options',
+                                    desc: 'What you want to do?',
+                                    btnOkText: "Edit",
+                                    btnOkOnPress: () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (context) => EditNote(
+                                                    noteId: data[index].id,
+                                                    oldNote: data[index]
+                                                        ["note"],
+                                                    categoryId:
+                                                        widget.categoryId,
+                                                  )));
+                                    },
+                                    btnCancelText: "Delete",
+                                    btnCancelOnPress: () async {
+                                      await FirebaseFirestore.instance
+                                          .collection("category")
+                                          .doc(widget.categoryId)
+                                          .collection("notes")
+                                          .doc(data[index].id)
+                                          .delete();
+                                      if (data[index]["url"] != "none") {
+                                        await FirebaseStorage.instance
+                                            .refFromURL(data[index]["url"])
+                                            .delete();
+                                      }
+
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                              builder: (context) => ViewPage(
+                                                    categoryId:
+                                                        widget.categoryId,
+                                                  )));
+                                    },
+                                  ).show();
+                                },
+                                child: Card(
+                                  // color: Colors.orange,
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        SizedBox(
-                                          height: 10,
+                                        Text(
+                                          "${data[index]["note"]}",
+                                          style: TextStyle(fontSize: 20),
                                         ),
-                                        Image.network(
-                                          data[index]["url"],
-                                          height: 100,
-                                        )
-                                      ],
-                                    ),
-                                ]),
+                                        if (data[index]["url"] != "none")
+                                          Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Image.network(
+                                                data[index]["url"],
+                                                height: 100,
+                                              )
+                                            ],
+                                          ),
+                                      ]),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
                   )));
   }
 }
