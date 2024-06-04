@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
                   fontWeight: FontWeight.bold),
               iconTheme: IconThemeData(color: Colors.orange))),
       debugShowCheckedModeBanner: false,
-      home: NotificationPage(),
+      home: Signup(),
       //  (FirebaseAuth.instance.currentUser != null &&
       //         FirebaseAuth.instance.currentUser!.emailVerified)
       //     ? HomePage()
