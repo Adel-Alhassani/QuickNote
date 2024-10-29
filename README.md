@@ -1,3 +1,2 @@
-# flutter_firebase_course
-A note app developed when learning flutter and firebase course by Wael abo hamza.
-there is a side folder have no relation to the app called "test_topics", it is just for testing some topics.
+# QuickNote
+A simple and efficient notes mobile app, allowing users to quickly capture and organize their thoughts. Users can sign up with Google or directly within the app, 
